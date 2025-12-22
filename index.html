@@ -1,1 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>묘월촌 미술관</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<style>
+body {
+  margin: 0;
+  padding: 16px;
+  background: #f3f3f3;
+  font-family: sans-serif;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.gallery img {
+  width: 100%;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* 모달 */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.modal-content {
+  background: #fff;
+  width: 90%;
+  max-width: 420px;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.modal-content img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.close {
+  text-align: right;
+  font-size: 14px;
+  cursor: pointer;
+  color: #888;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🌙 묘월촌 미술관</h1>
+
+<div class="gallery" id="gallery"></div>
+
+<!-- 팝업 -->
+<div class="modal" id="modal" onclick="closeModal()">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="close" onclick="closeModal()">닫기 ✕</div>
+    <img id="modalImg">
+    <h3 id="modalTitle"></h3>
+    <p id="modalDesc"></p>
+    <p id="modalPrice"></p>
+  </div>
+</div>
+
+<script>
+// 🔹 작품 데이터 (20개)
+const artworks = [
+  { img:"images/art01.png", title:"달빛의 숲", desc:"달빛 아래 고요한 숲을 표현한 작품", price:"50,000 캐시" },
+  { img:"images/art02.png", title:"별의 숨결", desc:"밤하늘의 별이 살아 숨 쉬는 느낌", price:"48,000 캐시" },
+  { img:"images/art03.png", title:"고요한 파도", desc:"멈춘 듯 흐르는 바다", price:"45,000 캐시" },
+  { img:"images/art04.png", title:"달의 정원", desc:"달빛이 머무는 정원", price:"52,000 캐시" },
+  { img:"images/art05.png", title:"은빛 나무", desc:"은은한 빛의 나무", price:"47,000 캐시" },
+
+  { img:"images/art06.png", title:"밤의 길", desc:"어둠 속 이어지는 길", price:"44,000 캐시" },
+  { img:"images/art07.png", title:"별무리", desc:"별들이 모여 흐르는 장면", price:"49,000 캐시" },
+  { img:"images/art08.png", title:"새벽의 숨", desc:"새벽 공기의 떨림", price:"46,000 캐시" },
+  { img:"images/art09.png", title:"달의 파편", desc:"부서진 달의 조각", price:"53,000 캐시" },
+  { img:"images/art10.png", title:"빛의 흔적", desc:"남겨진 빛의 잔상", price:"51,000 캐시" },
+
+  { img:"images/art11.png", title:"고요한 정적", desc:"소리 없는 순간", price:"42,000 캐시" },
+  { img:"images/art12.png", title:"은하수 끝", desc:"은하의 마지막 지점", price:"55,000 캐시" },
+  { img:"images/art13.png", title:"밤의 숨결", desc:"어둠이 살아 움직이는 듯한 표현", price:"47,000 캐시" },
+  { img:"images/art14.png", title:"별빛 호수", desc:"별이 비치는 호수", price:"50,000 캐시" },
+  { img:"images/art15.png", title:"달의 그림자", desc:"달 아래 드리운 그림자", price:"48,000 캐시" },
+
+  { img:"images/art16.png", title:"어둠의 결", desc:"어둠의 질감", price:"46,000 캐시" },
+  { img:"images/art17.png", title:"빛의 숨김", desc:"숨겨진 빛의 이야기", price:"49,000 캐시" },
+  { img:"images/art18.png", title:"별의 잔향", desc:"별이 남긴 여운", price:"52,000 캐시" },
+  { img:"images/art19.png", title:"달빛 언덕", desc:"달빛에 물든 언덕", price:"45,000 캐시" },
+  { img:"images/art20.png", title:"밤의 끝", desc:"밤이 끝나는 순간", price:"54,000 캐시" }
+];
+
+// 🔹 갤러리 생성
+const gallery = document.getElementById("gallery");
+artworks.forEach(a => {
+  const img = document.createElement("img");
+  img.src = a.img;
+  img.onclick = () => openModal(a);
+  gallery.appendChild(img);
+});
+
+// 🔹 모달
+function openModal(a) {
+  document.getElementById("modal").style.display = "flex";
+  document.getElementById("modalImg").src = a.img;
+  document.getElementById("modalTitle").innerText = a.title;
+  document.getElementById("modalDesc").innerText = a.desc;
+  document.getElementById("modalPrice").innerText = "판매가: " + a.price;
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+</script>
+
+</body>
+</html>
